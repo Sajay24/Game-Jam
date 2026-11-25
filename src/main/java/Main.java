@@ -1,12 +1,15 @@
-import zero.ui.Label;
-import zero.App;
+import javax.swing.JFrame;
 
-public class Main extends App {
-    @Override public void settings() { padding(20); }
-
-    public void setup() {
-        var greeting = new Label("Hello, world!");
-        show(greeting);
+public class Main
+{
+    public static void main(String[] args)
+    {
+        JFrame frame = new JFrame("Moon Tap");
+        frame.setSize(500, 500);
+        frame.setSize(500,500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
     }
-    public static void main(String[] args) { launch(args); }
 }
