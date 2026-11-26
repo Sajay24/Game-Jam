@@ -14,26 +14,30 @@ public class GamePanel extends JPanel implements ActionListener
 
     public GamePanel()
     {
+        setPreferredSize(new Dimension(500, 500));
         setBackground(Color.BLACK);
         setFocusable(true);
 
         addMouseListener(new MouseAdapter()
         {
-            public void mousePressed(MouseEvent e)
+            public void keyPressed(KeyEvent e)
             {
-                handleInput();
+                if (e.getKeyCode() == KeyEvent.VK_SPACE)
+                {
+                    handleInput();
+                }
             }
         });
-
         timer.start();
     }
 
     void handleInput()
     {
-        if (gameOver)
+        if(gameOver)
         {
             rocket.reset();
             asteroid.reset();
+
             score = 0;
             gameOver = false;
         } else {
@@ -41,6 +45,7 @@ public class GamePanel extends JPanel implements ActionListener
         }
     }
 
+    @Override 
     public void actionPerformed(ActionEvent e)
     {
         if (!gameOver)
@@ -50,43 +55,55 @@ public class GamePanel extends JPanel implements ActionListener
 
             if(asteroid.getBounds().intersects(rocket.getBounds()) || rocket.y < 0 || rocket.y > 465)
             {
-                gameOver = true;
-            }
-
-            if(asteroid.x == 60)
-            {
                 score++;
+                asteroid.scored = true;
             }
         }
+
         repaint();
     }
 
+    @Override 
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
 
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
         g.setColor(Color.WHITE);
+
         for (int i = 0; i < 30; i++)
         {
-            g.fillOval((i * 73) % 500, (i * 47) % 450, 2, 2);
+            int starX = (i * 73) % getWidth();
+            int starY = (i * 47) % getHeight();
+
+            g.fillOval(starX, starY, 3, 3);
         }
 
         rocket.draw(g);
         asteroid.draw(g);
 
         g.setColor(Color.WHITE);
-        g.drawString("MOON TAP", 20, 25);
-        g.drawString("Score: " + score, 20, 50);
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+
+        g.drawString("MOON TAP", 20, 30);
+        g.drawString("Score: " + score, 20, 60);
 
         if(gameOver)
         {
             g.setColor(Color.RED);
-            g.drawString("GAME OVER!", 200, 220);
+            g.setFont(new Font("Arial", Font.BOLD, 26));
+            g.drawString("GAME OVER!", 155, 220);
 
             g.setColor(Color.WHITE);
-            g.drawString("Click or SPACE to restart", 160, 250);
+            g.setFont(new Font("Arial", Font.PLAIN, 16));
+            g.drawString("Click or SPACE to restart", 130, 250);
         } else {
-            g.drawString("Click or SPACE to fly!", 170, 460);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.PLAIN, 16));
+            g.drawString("Click or SPACE to fly!", 140, 460);
         }
     }
 }
+

@@ -1,15 +1,26 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 
-public class Main
+public class Main 
 {
     public static void main(String[] args)
     {
-        JFrame frame = new JFrame("Moon Tap");
-        frame.setSize(500, 500);
-        frame.setSize(500,500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
+        SwingUtilities.invokeLater(() -> 
+        {
+            JFrame frame = new JFrame("Moon Tap");
+
+            GamePanel panel = new GamePanel();
+
+            frame.add(panel);
+            frame.pack();
+
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
+            frame.setVisible(true);
+
+            panel.requestFocusInWindow();
+        });
     }
 }
+
+
