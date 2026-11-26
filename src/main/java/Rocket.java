@@ -1,42 +1,42 @@
 import java.awt.*;
 
-public class Rocket
-{
+public class Rocket {
+
     int x = 60;
     int y = 250;
     int velocity = 0;
 
-    public void jump()
-    {
+    public void jump() {
         velocity = -9;
     }
 
-    public void update()
-    {
+    public void update() {
         velocity += 1;
         y += velocity;
     }
 
-    public void draw(Graphics g)
-    {
+    public void draw(Graphics g) {
+
+        // Rocket body
         g.setColor(Color.ORANGE);
         g.fillOval(x, y, 35, 35);
 
+        // Rocket window
         g.setColor(Color.CYAN);
         g.fillOval(x + 10, y + 8, 15, 15);
 
+        // Rocket flame
         g.setColor(Color.RED);
-        g.fillOval(x + 10, y+30, 15, 10);
-    }
-
-    public void reset()
-    {
-        y = 250;
-        velocity = 0;
+        g.fillOval(x + 10, y + 30, 15, 10);
     }
 
     public Rectangle getBounds() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBounds'");
+        return new Rectangle(x, y, 35, 35);
+    }
+
+    public void reset() {
+        y = 250;
+        velocity = 0;
     }
 }
+
